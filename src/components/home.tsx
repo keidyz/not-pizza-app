@@ -111,6 +111,7 @@ const Foreground = styled.div`
 `;
 
 const particleConfig = {
+    fpsLimit: 30,
     emitters: [
         {
             life: {
