@@ -1,4 +1,4 @@
-import { browser } from '@tensorflow/tfjs';
+import { browser, div } from '@tensorflow/tfjs';
 import { load, MobileNet } from '@tensorflow-models/mobilenet';
 import React, {
     FunctionComponent,
