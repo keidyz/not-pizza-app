@@ -1,7 +1,16 @@
 import { browser } from '@tensorflow/tfjs';
 import { load, MobileNet } from '@tensorflow-models/mobilenet';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {
+    FunctionComponent,
+    useCallback,
+    useEffect,
+    useState,
+} from 'react';
+import Particles from 'react-tsparticles';
 import styled from 'styled-components';
+import { loadFull } from 'tsparticles';
+
+import pizzaIcon from '../images/pizza-icon.png';
 
 interface ImageData {
     height: number;
@@ -11,7 +20,7 @@ interface ImageData {
 
 const Container = styled.div`
     font-family: 'Roboto', sans-serif;
-    background-color: #f3d8a6;
+    background-image: linear-gradient(to bottom left, #fcca6d, #fce5bb);
     color: #e25415;
     height: 100%;
     padding: 30px;
@@ -19,13 +28,14 @@ const Container = styled.div`
 `;
 
 const Logo = styled.div`
-    font-size: 10vw;
+    font-size: 13vw;
     text-align: center;
+    margin: 10px;
 `;
 
 const UploadArea = styled.div`
     padding: 20px;
-    font-size: 3vw;
+    font-size: 4vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,7 +66,7 @@ const Image = styled.img`
 `;
 
 const IsPizzaResult = styled.div<{
-    result: boolean;
+    result: string;
 }>`
     margin: 10px 0;
     height: 50px;
@@ -67,6 +77,82 @@ const IsPizzaResult = styled.div<{
     align-items: center;
     font-size: 3vw;
 `;
+
+const Foreground = styled.div`
+    position: relative;
+`;
+
+const particleConfig = {
+    emitters: [
+        {
+            life: {
+                delay: 0.1,
+                duration: 0.5,
+            },
+            rate: {
+                delay: 0.5,
+                quantity: 1,
+            },
+            position: {
+                y: 50,
+            },
+            direction: 'bottom',
+        },
+        {
+            life: {
+                delay: 0.2,
+                duration: 0.5,
+            },
+            rate: {
+                delay: 0.5,
+                quantity: 1,
+            },
+            position: {
+                y: 50,
+            },
+            direction: 'bottom',
+        },
+    ],
+    particles: {
+        shape: {
+            type: 'image',
+            options: {
+                image: [
+                    {
+                        src: pizzaIcon,
+                    },
+                ],
+            },
+        },
+        rotate: {
+            value: {
+                min: 0,
+                max: 360,
+            },
+            direction: 'random',
+            animation: {
+                enable: true,
+                speed: 2,
+            },
+        },
+        number: {
+            value: 0,
+        },
+        size: {
+            value: 50,
+        },
+        move: {
+            enable: true,
+            direction: 'none',
+            straight: true,
+            out_mode: 'destroy',
+            speed: {
+                min: 2,
+                max: 5,
+            },
+        },
+    },
+};
 
 const getImageData = (imageUrl: string): Promise<ImageData> => {
     const imageElement = document.createElement('img');
@@ -92,6 +178,14 @@ export const Home: FunctionComponent<{}> = () => {
         })();
     }, []);
 
+    const particlesInit = useCallback(async (engine) => {
+        console.log(engine);
+        // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+        // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+        // starting from v2 you can add only the features you need reducing the bundle size
+        await loadFull(engine);
+    }, []);
+
     const handleImageUpload = async ({
         target: { files },
     }: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,6 +198,7 @@ export const Home: FunctionComponent<{}> = () => {
         const { imageElement } = await getImageData(imageUrl);
         const tensor = browser.fromPixels(imageElement);
         const predictions = await mobilenetModel.classify(tensor);
+        console.log('qwe', predictions)
         const classes = predictions.map(({ className }) => className);
         const isPizzaResult =
             classes.join('').toLowerCase().indexOf('pizza') !== -1;
@@ -112,24 +207,41 @@ export const Home: FunctionComponent<{}> = () => {
 
     return (
         <Container>
-            <Logo>Not Pizza</Logo>
-            <UploadArea>
-                <div>{"Not sure if it's a pizza?"}</div>
-                <Upload>
-                    Upload a photo!
-                    <input
-                        type="file"
-                        name="file"
-                        onChange={handleImageUpload}
-                    />
-                </Upload>
-            </UploadArea>
-            {isPizza !== null && (
-                <IsPizzaResult result={isPizza}>
-                    {isPizza ? 'pizza' : 'not a pizza'}
-                </IsPizzaResult>
-            )}
-            <ImageContainer>{image && <Image src={image} />}</ImageContainer>
+            <Particles
+                id="tsparticles"
+                init={particlesInit}
+                options={particleConfig}
+            />
+            <Foreground>
+                <iframe
+                    src="https://ghbtns.com/github-btn.html?user=keidyz&repo=not-pizza-app&type=star&size=large"
+                    frameBorder="0"
+                    scrolling="0"
+                    width="170"
+                    height="30"
+                    title="GitHub"
+                ></iframe>
+                <Logo>Not Pizza</Logo>
+                <UploadArea>
+                    <div>{"Not sure if it's a pizza?"}</div>
+                    <Upload>
+                        Upload a photo!
+                        <input
+                            type="file"
+                            name="file"
+                            onChange={handleImageUpload}
+                        />
+                    </Upload>
+                </UploadArea>
+                {isPizza !== null && (
+                    <IsPizzaResult result={String(isPizza)}>
+                        {isPizza ? 'pizza' : 'not a pizza'}
+                    </IsPizzaResult>
+                )}
+                <ImageContainer>
+                    {image && <Image src={image} />}
+                </ImageContainer>
+            </Foreground>
         </Container>
     );
 };

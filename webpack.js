@@ -60,6 +60,7 @@ module.exports = () => {
                 'react-dom': 'react-dom',
             }),
             new HtmlWebpackPlugin({
+                favicon: './src/images/favicon.ico',
                 template: path.resolve(__dirname, 'src', 'index.html'),
             }),
             new MiniCssExtractPlugin({
