@@ -6,11 +6,14 @@ import React, {
     useEffect,
     useState,
 } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Particles from 'react-tsparticles';
 import styled from 'styled-components';
 import { loadFull } from 'tsparticles';
 
+import { phone, tablet } from '../constants/screen-sizes';
 import pizzaIcon from '../images/pizza-icon.png';
+import { GitHubButton } from './github-button';
 
 interface ImageData {
     height: number;
@@ -25,23 +28,39 @@ const Container = styled.div`
     height: 100%;
     padding: 30px;
     overflow: auto;
+    @media only screen and (max-width: ${phone}) {
+        padding: 10px;
+    }
 `;
 
 const Logo = styled.div`
-    font-size: 13vw;
+    font-size: 10vw;
     text-align: center;
     margin: 10px;
+    @media only screen and (max-width: ${tablet}) {
+        font-size: 14vw;
+    }
+    @media only screen and (max-width: ${phone}) {
+        font-size: 19vw;
+    }
 `;
 
 const UploadArea = styled.div`
-    padding: 20px;
-    font-size: 4vw;
+    font-size: 3vw;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     div {
         margin: 10px 0;
+    }
+
+    @media only screen and (max-width: ${tablet}) {
+        font-size: 5vw;
+    }
+
+    @media only screen and (max-width: ${phone}) {
+        font-size: 7vw;
     }
 `;
 
@@ -62,7 +81,7 @@ const ImageContainer = styled.div`
 `;
 
 const Image = styled.img`
-    width: 70%;
+    width: 50%;
 `;
 
 const IsPizzaResult = styled.div<{
@@ -76,6 +95,13 @@ const IsPizzaResult = styled.div<{
     justify-content: center;
     align-items: center;
     font-size: 3vw;
+    @media only screen and (max-width: ${tablet}) {
+        margin: 30px 0;
+        font-size: 4vw;
+    }
+    @media only screen and (max-width: ${phone}) {
+        font-size: 6vw;
+    }
 `;
 
 const Foreground = styled.div`
@@ -171,6 +197,7 @@ export const Home: FunctionComponent<{}> = () => {
     const [mobilenetModel, setMobilenetModel] = useState<MobileNet | null>(
         null,
     );
+    const isPhone = useMediaQuery({ query: `(max-width: ${phone})` });
 
     useEffect(() => {
         (async () => {
@@ -179,10 +206,6 @@ export const Home: FunctionComponent<{}> = () => {
     }, []);
 
     const particlesInit = useCallback(async (engine) => {
-        console.log(engine);
-        // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-        // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-        // starting from v2 you can add only the features you need reducing the bundle size
         await loadFull(engine);
     }, []);
 
@@ -198,7 +221,6 @@ export const Home: FunctionComponent<{}> = () => {
         const { imageElement } = await getImageData(imageUrl);
         const tensor = browser.fromPixels(imageElement);
         const predictions = await mobilenetModel.classify(tensor);
-        console.log('qwe', predictions)
         const classes = predictions.map(({ className }) => className);
         const isPizzaResult =
             classes.join('').toLowerCase().indexOf('pizza') !== -1;
@@ -213,14 +235,7 @@ export const Home: FunctionComponent<{}> = () => {
                 options={particleConfig}
             />
             <Foreground>
-                <iframe
-                    src="https://ghbtns.com/github-btn.html?user=keidyz&repo=not-pizza-app&type=star&size=large"
-                    frameBorder="0"
-                    scrolling="0"
-                    width="170"
-                    height="30"
-                    title="GitHub"
-                ></iframe>
+                <GitHubButton width={isPhone ? '75' : '75'} />
                 <Logo>Not Pizza</Logo>
                 <UploadArea>
                     <div>{"Not sure if it's a pizza?"}</div>
