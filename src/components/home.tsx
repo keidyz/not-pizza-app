@@ -110,79 +110,6 @@ const Foreground = styled.div`
     position: relative;
 `;
 
-const particleConfig = {
-    fpsLimit: 30,
-    emitters: [
-        {
-            life: {
-                delay: 0.1,
-                duration: 0.5,
-            },
-            rate: {
-                delay: 0.5,
-                quantity: 1,
-            },
-            position: {
-                y: 50,
-            },
-            direction: 'bottom',
-        },
-        {
-            life: {
-                delay: 0.2,
-                duration: 0.5,
-            },
-            rate: {
-                delay: 0.5,
-                quantity: 1,
-            },
-            position: {
-                y: 50,
-            },
-            direction: 'bottom',
-        },
-    ],
-    particles: {
-        shape: {
-            type: 'image',
-            options: {
-                image: [
-                    {
-                        src: pizzaIcon,
-                    },
-                ],
-            },
-        },
-        rotate: {
-            value: {
-                min: 0,
-                max: 360,
-            },
-            direction: 'random',
-            animation: {
-                enable: true,
-                speed: 2,
-            },
-        },
-        number: {
-            value: 0,
-        },
-        size: {
-            value: 50,
-        },
-        move: {
-            enable: true,
-            direction: 'none',
-            straight: true,
-            out_mode: 'destroy',
-            speed: {
-                min: 2,
-                max: 5,
-            },
-        },
-    },
-};
-
 const getImageData = (imageUrl: string): Promise<ImageData> => {
     const imageElement = document.createElement('img');
     return new Promise((res) => {
@@ -228,6 +155,79 @@ export const Home: FunctionComponent<{}> = () => {
         const isPizzaResult =
             classes.join('').toLowerCase().indexOf('pizza') !== -1;
         setIsPizza(isPizzaResult);
+    };
+
+    const particleConfig = {
+        fpsLimit: 30,
+        emitters: [
+            {
+                life: {
+                    delay: isPhone ? 2.5 : 0.1,
+                    duration: 0.5,
+                },
+                rate: {
+                    delay: 0.5,
+                    quantity: 1,
+                },
+                position: {
+                    y: isPhone ? 30 : 50,
+                },
+                direction: 'bottom',
+            },
+            {
+                life: {
+                    delay: isPhone ? 3.5 : 0.2,
+                    duration: 0.5,
+                },
+                rate: {
+                    delay: 0.5,
+                    quantity: 1,
+                },
+                position: {
+                    y: isPhone ? 30 : 50,
+                },
+                direction: 'bottom',
+            },
+        ],
+        particles: {
+            shape: {
+                type: 'image',
+                options: {
+                    image: [
+                        {
+                            src: pizzaIcon,
+                        },
+                    ],
+                },
+            },
+            rotate: {
+                value: {
+                    min: 0,
+                    max: 360,
+                },
+                direction: 'random',
+                animation: {
+                    enable: true,
+                    speed: 2,
+                },
+            },
+            number: {
+                value: 0,
+            },
+            size: {
+                value: 50,
+            },
+            move: {
+                enable: true,
+                direction: 'none',
+                straight: true,
+                out_mode: 'destroy',
+                speed: {
+                    min: 2,
+                    max: 5,
+                },
+            },
+        },
     };
 
     return (
