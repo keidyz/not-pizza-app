@@ -24,6 +24,8 @@ Now for the final test, let's use [this](https://unsplash.com/photos/MR329Bd-7sA
 
 Brilliant, isn't it?
 
+And best of all? it's responsive! Open it up on your phone or your tablet and take pictures of suspicious pizzas from anywhere! That easy.
+
 ## Local usage
 - clone the repository: `git@github.com:keidyz/not-pizza-app.git` (or download it to your local)
 - once in the folder, install the dependencies: `npm i`
