@@ -33,7 +33,7 @@ And best of all? it's responsive! Open it up on your phone or your tablet and ta
 - run it: `npm run dev`
 
 ## Inspiration and other notes
-This idea came from a clip I saw when I was a kid
+This idea came from a Silicon Valley clip I saw when I was a kid
 https://www.youtube.com/watch?v=vIci3C4JkL0
 
 The app uses ReactJs and relies on TensorFlow for the bulk of the image classification part of it.
