@@ -69,6 +69,7 @@ const Upload = styled.label`
     background-color: #d06528;
     padding: 10px;
     border-radius: 20px;
+    cursor: pointer;
     input {
         display: none;
     }
@@ -90,7 +91,8 @@ const IsPizzaResult = styled.div<{
     margin: 10px 0;
     height: 50px;
     color: #fefefe;
-    background-color: ${({ result }) => (result ? '#11760f' : '#b60708')};
+    background-color: ${({ result }) =>
+        result === 'true' ? '#11760f' : '#b60708'};
     display: flex;
     justify-content: center;
     align-items: center;
