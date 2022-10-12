@@ -10,17 +10,17 @@ Using it is so simple, all you have to do is head over to https://keidyz.github.
 
 Here, let's try this royalty free photo of a pepperoni pizza I got from [here](https://unsplash.com/photos/_P76trHTWDE)
 
-<img src="https://github.com/keidyz/not-pizza-app/tree/main/readme-images/image-a.jpg" width="50%">
+<img src="https://github.com/keidyz/not-pizza-app/blob/main/readme-images/image-a.png" width="50%">
 
 Great, huh?
 
 Now how about this other [image](https://unsplash.com/photos/UxRhrU8fPHQ)
 
-<img src="https://github.com/keidyz/not-pizza-app/tree/main/readme-images/image-b.jpg" width="50%">
+<img src="https://github.com/keidyz/not-pizza-app/blob/main/readme-images/image-b.png" width="50%">
 
 Now for the final test, let's use [this](https://unsplash.com/photos/MR329Bd-7sA)
 
-<img src="https://github.com/keidyz/not-pizza-app/tree/main/readme-images/image-c.jpg" width="50%">
+<img src="https://github.com/keidyz/not-pizza-app/blob/main/readme-images/image-c.png" width="50%">
 
 Brilliant, isn't it?
 
