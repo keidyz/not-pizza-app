@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --config=webpack.js",
+    "dev": "webpack-dev-server --progress --config=webpack.dev.js",
+    "build": "rm -rf dist && webpack --config=webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,7 @@
     "@tensorflow-models/mobilenet": "^2.1.0",
     "@tensorflow/tfjs": "^3.21.0",
     "babel-loader": "^8.2.5",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive": "^9.0.0",
