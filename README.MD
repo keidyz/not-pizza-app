@@ -3,7 +3,7 @@ Have you ever seen something and wondered if it was a pizza or not?
 
 No? Doesn't matter. 
 
-What matters is that we have  _state of the art_ image classification system right here that could assist all the people out there in determining if something is a pizza or not.
+What matters is that we have a _state of the art_ image classification system right here that could assist all the people out there in determining if something is a pizza or not.
 
 ## Usage
 Using it is so simple, all you have to do is head over to https://keidyz.github.io/not-pizza-app/ and upload a photo!
@@ -27,7 +27,8 @@ Brilliant, isn't it?
 And best of all? it's responsive! Open it up on your phone or your tablet and take pictures of suspicious pizzas from anywhere! That easy.
 
 ## Local usage
-- clone the repository: `git@github.com:keidyz/not-pizza-app.git` (or download it to your local)
+- clone the repository: `git clone git@github.com:keidyz/not-pizza-app.git` (or download it to your local)
+- navigate to the downloaded folder
 - once in the folder, install the dependencies: `npm i`
 - run it: `npm run dev`
 
